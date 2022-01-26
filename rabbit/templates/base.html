@@ -38,8 +38,8 @@
 
                 <!-- nav bar - left side -->
                 <div class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <a class="nav-link active" aria-current="page" href="#">Frontpage</a>
-                    <a class="nav-link" href="#">All</a>
+                    <a class="nav-link active" aria-current="page" href="">Frontpage</a>
+                    <a class="nav-link" href="">All</a>
                 </div>
 
                 <!-- nav bar - right side -->
@@ -83,7 +83,7 @@
             <span class="page-links">
 
                 {% if page_obj.has_previous %}
-                <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous<a/>
+                <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
 
                 {% else %}
                 <span class="text-muted">previous</span>
