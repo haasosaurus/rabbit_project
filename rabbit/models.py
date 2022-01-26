@@ -9,6 +9,7 @@ from django.db import models
 from django.forms import ValidationError
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 def validate_subrabbit_name_case_insensitive(name):
@@ -60,6 +61,9 @@ class SubRabbit(models.Model):
         self.name_lower = self.name.lower()
         super(SubRabbit, self).save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse('subrabbit', kwargs={'pk': self.pk})
+
 
 class Post(models.Model):
     """
@@ -80,8 +84,9 @@ class Post(models.Model):
         help_text='Post type',
     )
 
-    title = models.CharField(max_length=300, verbose_name='Post Title')
+    title = models.CharField(max_length=500, verbose_name='Post Title')
     content = models.TextField(max_length=40_000, verbose_name='Content')
+    image_url = models.URLField(null=True, default=None)
 
     deleted = models.BooleanField(default=False, verbose_name='Deleted')
     datetime_submitted = models.DateTimeField(verbose_name='Date submitted', auto_now_add=True)
@@ -106,6 +111,9 @@ class Post(models.Model):
 
     def __str__(self):
         return f'{self.pk} {self.title[:60]}'
+
+    def get_absolute_url(self):
+        return reverse('post-detail', kwargs={'sub_pk': self.subrabbit.pk, 'post_pk': self.pk})
 
 
 class Comment(models.Model):
