@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% block title %} • {{ sub_title }}{% endblock  %}
+
+
+{% block content %}
+{% if page_obj.object_list %}
+    <div class="d-flex flex-column bd-highlight m-3">
+    {% for post in page_obj.object_list %}
+        <div class="subrabbit-post m-1 p-2">
+            <div>{{ post.title }}</div>
+            <div>
+                <span class="tiny-font">comments</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}
+
+
+{% block sidebar %}
+<a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <span class="fs-5 d-none d-sm-inline"><h1>r/{{ sub_name }}</h1></span>
+</a>
+<p><strong></strong> {{ sub_description }}</p>
+<p><strong>Owner:</strong> {{ sub_owner }}</p>
+<p><strong>Created:</strong> {{ sub_datetime_created }}</p>
+<p><strong>Members:</strong> {{ sub_member_count }}</p>
+<p><strong></strong> {{ sub_sidebar }}</p>
+{% comment %} <p><strong></strong> {{ sub_submission_text }}</p> {% endcomment %}
+{% endblock  %}
