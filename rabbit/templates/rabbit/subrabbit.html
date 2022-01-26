@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 
-{% block title %} • {{ sub_title }}{% endblock  %}
+{% block title %} • {{ sub.title }}{% endblock  %}
 
 
 {% block content %}
@@ -9,9 +9,15 @@
     <div class="d-flex flex-column bd-highlight m-3">
     {% for post in page_obj.object_list %}
         <div class="subrabbit-post m-1 p-2">
+            {% if post.post_type == post.TEXT %}
             <div>{{ post.title }}</div>
+            {% else %}
+
+            <a href="{{ post.content }}"><div>{{ post.title }}</div></a>
+
+            {% endif %}
             <div>
-                <span class="tiny-font">comments</span>
+                <a href="{{ post.get_absolute_url }}"><span class="tiny-font">comments</span></a>
             </div>
         </div>
         {% endfor %}
@@ -22,12 +28,13 @@
 
 {% block sidebar %}
 <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-    <span class="fs-5 d-none d-sm-inline"><h1>r/{{ sub_name }}</h1></span>
+    <span class="fs-5 d-none d-sm-inline"><h1>r/{{ sub.name }}</h1></span>
 </a>
-<p><strong></strong> {{ sub_description }}</p>
-<p><strong>Owner:</strong> {{ sub_owner }}</p>
-<p><strong>Created:</strong> {{ sub_datetime_created }}</p>
-<p><strong>Members:</strong> {{ sub_member_count }}</p>
-<p><strong></strong> {{ sub_sidebar }}</p>
+<a href="{% url 'post-create' sub.pk %}">Submit new post</a>
+<p><strong></strong> {{ sub.description }}</p>
+<p><strong>Owner:</strong> {{ sub.owner }}</p>
+<p><strong>Created:</strong> {{ sub.datetime_created }}</p>
+<p><strong>Members:</strong> {{ sub.member_count }}</p>
+<p><strong></strong> {{ sub.sidebar }}</p>
 {% comment %} <p><strong></strong> {{ sub_submission_text }}</p> {% endcomment %}
 {% endblock  %}
