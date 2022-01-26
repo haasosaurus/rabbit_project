@@ -2,5 +2,37 @@
 {% load widget_tweaks %}
 
 {% block content %}
-<h1>Index</h1>
+{% if page_obj.object_list %}
+    <div class="d-flex flex-column bd-highlight m-3">
+    {% for post in page_obj.object_list %}
+        <div class="subrabbit-post m-1 p-2">
+            <div>
+            {% load static %}
+            <img src="{% if post.image_url %}{{ post.image_url }}{% else %}{% static 'images/mimi.png' %}{% endif %}" width="40" height="40">
+
+            {% if post.post_type == post.TEXT %}
+            {{ post.title }}
+
+            {% else %}
+            <a href="{{ post.content }}">{{ post.title }}</a>
+            {% endif %}
+
+            <span class='tiny-font'><a href="{{ post.subrabbit.get_absolute_url }}">r/{{ post.subrabbit.name }}</a></span>
+            </div>
+            <div>
+                <a href="{{ post.get_absolute_url }}"><span class="tiny-font">comments</span></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}
+
+
+{% block sidebar %}
+<a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <span class="fs-5 d-none d-sm-inline"><h1>Sidebar</h1></span>
+</a>
+<a href="">Subrabbit list</a>
+<p><strong></strong>Create Subrabbit</p>
 {% endblock  %}
