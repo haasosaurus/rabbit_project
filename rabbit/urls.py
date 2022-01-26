@@ -16,10 +16,13 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='rabbit/login.html'), name='login'),
     path('logout/', view=auth_views.LogoutView.as_view(), name='logout'),
     path('profile/', view=views.ProfileView.as_view(), name='profile'),
-    path('r/<str:pk>/', view=views.subrabbit_view, name='sub')
+    path('r/<str:pk>/', view=views.subrabbit_view, name='subrabbit'),
+    path('r/<str:sub_pk>/<int:post_pk>/', view=views.post_detail_view, name='post-detail'),
+    # path('r/<str:sub_pk>/<int:post_pk>/', view=views.PostDetailView.as_view(), name='post-detail'),
+    path('r/<str:pk>/submit/', view=views.create_post_view, name='post-create')
+
+
     # path('r/<str:pk>/', view=views.SubRabbitPostsListsView.as_view(), name='sub')
-
-
     # re_path(r'^(?i)r/(?P<name>[a-zA-Z_]+)$', views.subrabbit_view, name='sub')
     # re_path(r'^(?i)r/(?P<str>[a-zA-Z_]+)$', views.subrabbit_view, name='sub')
     # path('logout/', view=auth_views.LogoutView.as_view(template_name='rabbit/logout.html'), name='logout'),
